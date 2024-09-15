@@ -9,6 +9,7 @@ __pycache__/
 #Custom
 weights/
 configs/
+dataset/
 
 # Distribution / packaging
 .Python
