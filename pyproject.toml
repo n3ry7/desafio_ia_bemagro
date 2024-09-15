@@ -1,0 +1,50 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "desafio_ia_bemagro"
+authors = [
+  { name="Nery Marques", email="nery.marques@hotmail.com" },
+]
+description = "Challenge to join BemAgro AI team"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+
+]
+
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+exclude = ["weights/*", "configs/*"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = true
+disable_error_code = ['var-annotated', 'assignment', 'return', 'arg-type', 'call-overload', 'func-returns-value', 'attr-defined', 'override']
+
+[tool.black]
+line-length = 100
+target-version=['py312']
+
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::DeprecationWarning",
+                  "ignore::UserWarning",
+                  "ignore::PendingDeprecationWarning"]
