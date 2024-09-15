@@ -1,14 +1,34 @@
-import cv2
 import os
+from typing import Tuple
+
+import cv2
 from tqdm import tqdm
 
+
 class ImageSplitter:
-    def __init__(self, input_path, output_dir, tile_size=(256, 256)):
+    """
+    A class to split a large image into smaller tiles.
+
+    Attributes:
+        input_path (str): The path to the input image file.
+        output_dir (str): The directory to save the output tiles.
+        tile_size (Tuple[int, int]): The size of each tile (width, height).
+
+    Methods:
+        apply(): Splits the input image into tiles and saves them to the output directory.
+    """
+
+    def __init__(
+        self, input_path: str, output_dir: str, tile_size: Tuple[int, int] = (256, 256)
+    ) -> None:
         self.input_path = input_path
         self.output_dir = output_dir
         self.tile_size = tile_size
 
-    def apply(self):
+    def apply(self) -> None:
+        """
+        Splits the input image into tiles and saves them to the output directory.
+        """
         # Open the large TIF image
         image = cv2.imread(self.input_path, cv2.IMREAD_UNCHANGED)
 
@@ -33,19 +53,22 @@ class ImageSplitter:
             end_row -= 1
 
         # Crop the image
-        image = image[start_row:end_row+1, start_col:end_col+1]
+        image = image[start_row : end_row + 1, start_col : end_col + 1]
 
         # Adjust the tile size to match the cropped image dimensions
-        self.tile_size = (min(self.tile_size[0], image.shape[1]), min(self.tile_size[1], image.shape[0]))
+        self.tile_size = (
+            min(self.tile_size[0], image.shape[1]),
+            min(self.tile_size[1], image.shape[0]),
+        )
 
         # Create the output directory if it doesn't exist
         os.makedirs(self.output_dir, exist_ok=True)
 
         # Iterate over the image and save the tiles as PNG files
         total_tiles = (image.shape[1] // self.tile_size[0]) * (image.shape[0] // self.tile_size[1])
-        with tqdm(total=total_tiles, unit='tile', desc='Splitting orthomosaic') as pbar:
+        with tqdm(total=total_tiles, unit="tile", desc="Splitting orthomosaic") as pbar:
             for x in range(0, image.shape[1], self.tile_size[0]):
                 for y in range(0, image.shape[0], self.tile_size[1]):
-                    tile = image[y:y+self.tile_size[1], x:x+self.tile_size[0]]
-                    cv2.imwrite(f'{self.output_dir}/tile_{x}_{y}.png', tile)
+                    tile = image[y : y + self.tile_size[1], x : x + self.tile_size[0]]
+                    cv2.imwrite(f"{self.output_dir}/tile_{x}_{y}.png", tile)
                     pbar.update(1)
