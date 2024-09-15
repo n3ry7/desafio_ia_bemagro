@@ -18,12 +18,14 @@ test:
 
 lint:
 	@$(PYTHON) -m flake8 plant_segmenter/*
-	@$(PYTHON) -m flake8 --ignore=D,W503,E712 tests/*
+	@$(PYTHON) -m flake8 dataset_handler/*
+	# @$(PYTHON) -m flake8 --ignore=D,W503,E712 tests/*
 	@$(PYTHON) -m mypy plant_segmenter --follow-imports=skip
+	@$(PYTHON) -m mypy dataset_handler --follow-imports=skip
 
 format:
-	@$(PYTHON) -m black plant_segmenter/ tests/
-	@$(PYTHON) -m isort plant_segmenter/* tests/*
+	@$(PYTHON) -m black plant_segmenter/ dataset_handler/
+	@$(PYTHON) -m isort plant_segmenter/* dataset_handler/*
 
 pyenv:
 	@export PYENV_ROOT=$(PYENV_ROOT)
