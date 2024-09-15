@@ -47,3 +47,5 @@ venv/bin/activate: pyenv requirements
 venv: venv/bin/activate
 	@source ./$(VENV)/bin/activate
 	@echo "VIRTUAL ENVIRONMENT LOADED"
+
+install: venv
