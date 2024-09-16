@@ -3,6 +3,7 @@ click==8.1.7
 Cython==3.0.10
 flake8==7.1.1
 isort==5.13.2
+joblib==1.4.2
 mccabe==0.7.0
 mypy==1.11.2
 mypy-extensions==1.0.0
@@ -13,7 +14,10 @@ pathspec==0.12.1
 platformdirs==4.3.3
 pycodestyle==2.12.1
 pyflakes==3.2.0
+scikit-learn==1.5.2
+scipy==1.14.1
 setuptools==74.1.2
+threadpoolctl==3.5.0
 tqdm==4.66.5
 typing_extensions==4.12.2
 wheel==0.44.0
