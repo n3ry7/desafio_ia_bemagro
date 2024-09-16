@@ -154,5 +154,3 @@ class BinaryMaskGenerator:
                     ),
                     plant_mask,
                 )
-
-                masked_img = cv2.bitwise_and(original_img, original_img, mask=plant_mask)

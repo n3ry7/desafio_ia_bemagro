@@ -1,7 +1,8 @@
 import os
 import random
 import shutil
-from typing import Tuple, List
+from typing import List, Tuple
+
 
 class DataSplitter:
     """
@@ -26,10 +27,13 @@ class DataSplitter:
 
     def apply(self) -> Tuple[List[str], List[str], List[str], List[str]]:
         """
-        Splits the dataset into training and validation sets, and copies the images and masks to the corresponding directories.
+        Splits the dataset into training and validation sets, and copies the
+        images and masks to the corresponding directories.
 
         Returns:
-            Tuple[List[str], List[str], List[str], List[str]]: A tuple containing the lists of training image files, training mask files, validation image files, and validation mask files.
+            Tuple[List[str], List[str], List[str], List[str]]: A tuple containing
+            the lists of training image files, training mask files, validation image files,
+            and validation mask files.
         """
         # Get a list of all image files in the source directory
         image_files = os.listdir(self.image_dir)
@@ -53,12 +57,16 @@ class DataSplitter:
         # Copy the images and masks to the destination directories
         for i, image_file in enumerate(image_files):
             image_path = os.path.join(self.image_dir, image_file)
-            mask_path = os.path.join(self.masks_dir, os.path.splitext(image_file)[0] + "_plant_mask.png")
+            mask_path = os.path.join(
+                self.masks_dir, os.path.splitext(image_file)[0] + "_plant_mask.png"
+            )
             if i in val_indices:
                 shutil.copy(image_path, os.path.join(self.val_image_dir, image_file))
                 shutil.copy(
                     mask_path,
-                    os.path.join(self.val_mask_dir, os.path.splitext(image_file)[0] + "_plant_mask.png"),
+                    os.path.join(
+                        self.val_mask_dir, os.path.splitext(image_file)[0] + "_plant_mask.png"
+                    ),
                 )
                 val_image_files.append(image_file)
                 val_mask_files.append(os.path.splitext(image_file)[0] + "_plant_mask.png")
@@ -66,7 +74,9 @@ class DataSplitter:
                 shutil.copy(image_path, os.path.join(self.train_image_dir, image_file))
                 shutil.copy(
                     mask_path,
-                    os.path.join(self.train_mask_dir, os.path.splitext(image_file)[0] + "_plant_mask.png"),
+                    os.path.join(
+                        self.train_mask_dir, os.path.splitext(image_file)[0] + "_plant_mask.png"
+                    ),
                 )
                 train_image_files.append(image_file)
                 train_mask_files.append(os.path.splitext(image_file)[0] + "_plant_mask.png")
