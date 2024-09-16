@@ -22,10 +22,13 @@ O resultado pode ser visto nas imagens a seguir.
 
 ### Dataset de treino e validação
 
+Foram separadas 10% das imagens para validação.
+
 ### Aumento do dataset
 
-## Implementação e treinamento da rede neural
+Foram utilizadas técnicas de aumento como rotação, flip, etc.
 
 ### Implementação da rede neural
 
 ### Treinamento da rede neural
+

@@ -38,7 +38,7 @@ To create a python virtual environment at .venv and install all requirements.
 
 ### Dependencies
 
-This project used python 3.12.2 and the packages are listed on requirements/requirements.txt
+This project uses python 3.12.2 and the packages are listed on requirements/requirements.txt
 
 ### Description
 

@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 from albumentations.pytorch import ToTensorV2
 from tqdm import tqdm
+from decouple import config
 
 from plant_segmenter.model.u_net import UNET
 from plant_segmenter.utils.train_utils import (
@@ -38,20 +39,20 @@ class UNetTrainer:
 
     def __init__(
         self,
-        learning_rate: float = float(os.getenv("LEARNING_RATE", "1e-4")),
-        device: str = os.getenv("DEVICE", "cuda" if torch.cuda.is_available() else "cpu"),
-        batch_size: int = int(os.getenv("BATCH_SIZE", "32")),
-        num_epochs: int = int(os.getenv("NUM_EPOCHS", "4")),
-        num_workers: int = int(os.getenv("NUM_WORKERS", "4")),
-        image_height: int = int(os.getenv("IMAGE_HEIGHT", "256")),
-        image_width: int = int(os.getenv("IMAGE_WIDTH", "256")),
-        pin_memory: bool = bool(os.getenv("PIN_MEMORY", "True")),
-        load_model: bool = bool(os.getenv("LOAD_MODEL", "False")),
-        model_path: str = str(os.getenv("MODEL_PATH", "plant_segmenter/weights/u_net_weights.pth")),
-        train_img_dir: str = os.getenv("TRAIN_IMG_DIR", "dataset/train_images"),
-        train_mask_dir: str = os.getenv("TRAIN_MASK_DIR", "dataset/train_masks"),
-        val_img_dir: str = os.getenv("VAL_IMG_DIR", "dataset/val_images"),
-        val_mask_dir: str = os.getenv("VAL_MASK_DIR", "dataset/val_masks"),
+        learning_rate: float = config("LEARNING_RATE", cast=float, default=1e-4),
+        device: str = config("DEVICE", default="cuda" if torch.cuda.is_available() else "cpu"),
+        batch_size: int = config("BATCH_SIZE", cast=int, default=32),
+        num_epochs: int = config("NUM_EPOCHS", cast=int, default=6),
+        num_workers: int = config("NUM_WORKERS", cast=int, default=4),
+        image_height: int = config("IMAGE_HEIGHT", cast=int, default=256),
+        image_width: int = config("IMAGE_WIDTH", cast=int, default=256),
+        pin_memory: bool = config("PIN_MEMORY", cast=bool, default=True),
+        load_model: bool = config("LOAD_MODEL", cast=bool, default=False),
+        model_path: str = config("MODEL_PATH", default="plant_segmenter/weights/u_net_weights.pth"),
+        train_img_dir: str = config("TRAIN_IMG_DIR", default="dataset/train_images"),
+        train_mask_dir: str = config("TRAIN_MASK_DIR", default="dataset/train_masks"),
+        val_img_dir: str = config("VAL_IMG_DIR", default="dataset/val_images"),
+        val_mask_dir: str = config("VAL_MASK_DIR", default="dataset/val_masks"),
     ):
         self.learning_rate = learning_rate
         self.device = device
