@@ -41,7 +41,7 @@ class UNetTrainer:
         learning_rate: float = float(os.getenv("LEARNING_RATE", "1e-4")),
         device: str = os.getenv("DEVICE", "cuda" if torch.cuda.is_available() else "cpu"),
         batch_size: int = int(os.getenv("BATCH_SIZE", "32")),
-        num_epochs: int = int(os.getenv("NUM_EPOCHS", "16")),
+        num_epochs: int = int(os.getenv("NUM_EPOCHS", "4")),
         num_workers: int = int(os.getenv("NUM_WORKERS", "4")),
         image_height: int = int(os.getenv("IMAGE_HEIGHT", "256")),
         image_width: int = int(os.getenv("IMAGE_WIDTH", "256")),
@@ -114,7 +114,7 @@ class UNetTrainer:
         )
 
         if self.load_model:
-            load_checkpoint(torch.load("my_checkpoint.pth.tar"), model)
+            load_checkpoint(torch.load(self.model_path), model)
 
         check_accuracy(val_loader, model, device=self.device)
         scaler = torch.cuda.amp.GradScaler()
