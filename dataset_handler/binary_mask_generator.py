@@ -14,15 +14,11 @@ class BinaryMaskGenerator:
     Attributes:
         input_folder (str): The path to the input folder containing the images.
         output_folder_masks (str): The path to the output folder for the generated masks.
-        output_folder_plants (str): The path to the output folder for the extracted plant images.
     """
 
-    def __init__(
-        self, input_folder: str, output_folder_masks: str, output_folder_plants: str
-    ) -> None:
+    def __init__(self, input_folder: str, output_folder_masks: str) -> None:
         self.input_folder = input_folder
         self.output_folder_masks = output_folder_masks
-        self.output_folder_plants = output_folder_plants
 
     def collect_pixels(self, sample_fraction: float = 0.1) -> np.ndarray:
         """
@@ -140,8 +136,6 @@ class BinaryMaskGenerator:
         """
         if not os.path.exists(self.output_folder_masks):
             os.makedirs(self.output_folder_masks)
-        if not os.path.exists(self.output_folder_plants):
-            os.makedirs(self.output_folder_plants)
 
         all_pixels = self.collect_pixels()
 
@@ -162,8 +156,3 @@ class BinaryMaskGenerator:
                 )
 
                 masked_img = cv2.bitwise_and(original_img, original_img, mask=plant_mask)
-
-                plant_path = os.path.join(
-                    self.output_folder_plants, f"{os.path.splitext(filename)[0]}_plant.png"
-                )
-                cv2.imwrite(plant_path, masked_img)
