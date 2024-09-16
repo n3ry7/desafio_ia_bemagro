@@ -8,6 +8,7 @@ __pycache__/
 
 #Custom
 weights/
+plant_segmenter/weights/
 configs/
 dataset/
 
