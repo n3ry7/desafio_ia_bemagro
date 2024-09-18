@@ -120,9 +120,9 @@ class BinaryMaskGenerator:
         ground_mask = (labels == ground_cluster).reshape(img.shape[:2])
         undefined_mask = (labels == undefined_cluster).reshape(img.shape[:2])
 
-        kernel = np.ones((3, 3), np.uint8)
+        kernel = np.ones((2, 2), np.uint8)
         plant_mask = cv2.dilate(plant_mask.astype(np.uint8) * 255, kernel, iterations=3)
-        plant_mask = cv2.erode(plant_mask, kernel, iterations=2)
+        plant_mask = cv2.erode(plant_mask, kernel, iterations=3)
 
         plant_mask = plant_mask.astype(np.uint8)
         ground_mask = ground_mask.astype(np.uint8)

@@ -32,3 +32,7 @@ Foram utilizadas técnicas de aumento como rotação, flip, etc.
 
 ### Treinamento da rede neural
 
+32 épocas com batch de 32 o resultado provavelmente overfitou.
+
+Mudança no prós processamento das máscaras ajudou a melhorar generalização.
+
